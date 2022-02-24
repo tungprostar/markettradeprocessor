@@ -1,6 +1,6 @@
 package com.example.markettradeprocessor.controller;
 
-import com.example.markettradeprocessor.config.amqp.TradeMessageProducerService;
+import com.example.markettradeprocessor.messageConsumption.MessageConsumptionService;
 import com.example.markettradeprocessor.entity.TradeMessage;
 import com.example.markettradeprocessor.model.request.TradeMessageRequest;
 import com.example.markettradeprocessor.model.response.TradeMessageResponse;
@@ -15,7 +15,7 @@ import java.util.List;
 public class TradeMessageController {
 
     @Autowired
-    private TradeMessageProducerService tradeMessageProducerService;
+    private MessageConsumptionService messageConsumptionService;
 
     @Autowired
     private MessageService messageService;
@@ -24,7 +24,7 @@ public class TradeMessageController {
     public void processMessage(@RequestBody TradeMessageRequest tradeMessageRequest) {
         TradeMessage tradeMessage = new TradeMessage();
         BeanUtils.copyProperties(tradeMessageRequest, tradeMessage);
-        tradeMessageProducerService.dispatch(tradeMessage);
+        messageConsumptionService.dispatch(tradeMessage);
     }
 
     @RequestMapping(value = "/fetchTradeMessageHistory/{userId}", method = RequestMethod.GET)
