@@ -20,18 +20,16 @@ Trade messages will be POST’ed to a single endpoint and will take the JSON for
 The system has to process these messages and display results in UI with a realtime visualisation of messages being processed.
  
 # Approach taken
-For message consumption: easy and average implementation ideas have been use while fininshing the app
+1. For message consumption: easy and average implementation ideas have been use while fininshing the app
 - Easy part: Consumed messages are saved to H2 DB (memory DB)
 - Average part: I've implemented rate limmiting using bucket4j
 User can only post request to api /message within maximum token in the bucket , after 6s, if the bucket is not full yet, add 1 token to the bucket.
-- Hard part: I've implemented simple RabbitMQ ... cần thêm ý tưởng
-For message Processor:
+- Hard part: I've implemented simple RabbitMQ the configuration need to be done more in order to handle heavy process
+2. For message Processor:
 - Easy: Just fetch all consumed data and directly display it on frontend
 - Because I've implement RabbitMQ but I don't have time to implement Webstomp (user for realtime data), in frontend, in order to kindly recreate that, I use interval, every 1s, call api to fetch newest result (I know this is a bad practice but just to demonstrate how things work)
-For Message Frontend:
+3. For Message Frontend:
 - Easy: Render a list of consumed messages
-
-For message processor
 
 # Overall architecture
 
